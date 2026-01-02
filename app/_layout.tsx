@@ -1,6 +1,24 @@
 import "../global.css";
 import "text-encoding";
 import "@walletconnect/react-native-compat";
+
+// Suppress WalletConnect logger errors (non-critical)
+if (__DEV__) {
+  const originalError = console.error;
+  console.error = (...args: any[]) => {
+    const message = args[0]?.toString() || "";
+    // Filter out WalletConnect logger errors
+    if (
+      message.includes("@walletconnect") ||
+      message.includes("WalletConnect") ||
+      message.includes("pino") ||
+      (typeof args[0] === "object" && args[0]?.level === 50)
+    ) {
+      return; // Suppress these errors
+    }
+    originalError.apply(console, args);
+  };
+}
 import {
   AppKit,
   AppKitProvider,
@@ -108,7 +126,6 @@ export default function RootLayout() {
                 }}
               >
                 <Stack.Screen name="index" />
-                <Stack.Screen name="splash" />
                 <Stack.Screen name="(tabs)" />
                 <Stack.Screen name="+not-found" />
               </Stack>

@@ -1,5 +1,4 @@
 import { useEffect, useState, useCallback } from "react";
-import { BASE_URL } from "@env";
 
 interface Token {
   address: string;
@@ -8,6 +7,8 @@ interface Token {
   decimals: number;
   isAllowed: boolean;
 }
+
+const BASE_URL = "https://ofpl-backend-xlog.onrender.com";
 
 export default function useFetchAllowedTokens() {
   const [allowedTokens, setAllowedTokens] = useState<Token[]>([]);

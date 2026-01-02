@@ -14,7 +14,7 @@ export default function SplashScreen() {
   const insets = useSafeAreaInsets();
 
   const handleGetStarted = async () => {
-    try {
+    try { 
       await AsyncStorage.setItem("hasSeenSplash", "true");
       router.replace("/(tabs)");
     } catch (error) {
